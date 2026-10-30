@@ -1,0 +1,103 @@
+:root {
+  color-scheme: dark;
+  --ink: #f4e9ee;
+  --dim: rgba(244, 233, 238, 0.55);
+  --accent: #ff7fb2;
+  --glass: rgba(255, 255, 255, 0.06);
+  --glass-b: rgba(255, 255, 255, 0.16);
+  --pad: max(16px, env(safe-area-inset-left));
+  --serif: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0; height: 100%; overflow: hidden;
+  background: #000; color: var(--ink);
+  font-family: var(--sans);
+  overscroll-behavior: none;
+}
+
+#scene {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  display: block; touch-action: none; outline: none;
+  cursor: grab;
+}
+#scene:active { cursor: grabbing; }
+
+.hud { position: fixed; left: var(--pad); right: var(--pad); pointer-events: none; z-index: 2; }
+
+.hud-top {
+  top: max(18px, env(safe-area-inset-top));
+  display: flex; flex-direction: column; gap: 4px;
+  opacity: 0; animation: fade 2.4s 1.2s forwards;
+}
+.title {
+  font-family: var(--serif); font-size: clamp(18px, 3.4vw, 26px);
+  letter-spacing: 0.32em; text-transform: uppercase; font-weight: 500;
+}
+.sub { font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); }
+
+.hud-bottom {
+  bottom: calc(max(132px, env(safe-area-inset-bottom) + 122px));
+  display: flex; flex-direction: column; gap: 10px; max-width: 360px;
+}
+.stage {
+  font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--dim);
+  min-height: 1.2em; opacity: 0; transform: translateY(4px); transition: opacity 0.7s, transform 0.7s;
+}
+.stage.on { opacity: 1; transform: none; }
+.track { display: block; height: 1px; background: rgba(255, 255, 255, 0.16); overflow: hidden; }
+.track i {
+  display: block; height: 100%; width: 100%; transform-origin: left; transform: scaleX(0);
+  background: linear-gradient(90deg, var(--accent), #fff);
+}
+
+.controls {
+  position: fixed; z-index: 3; left: 50%; transform: translateX(-50%);
+  bottom: max(20px, env(safe-area-inset-bottom));
+  display: flex; gap: 10px;
+  opacity: 0; animation: fade 1.6s 2s forwards;
+}
+.controls button {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 18px; min-height: 44px;
+  font: 500 12px/1 var(--sans); letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink); background: var(--glass);
+  border: 1px solid var(--glass-b); border-radius: 999px;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  cursor: pointer; transition: background 0.25s, border-color 0.25s, transform 0.15s;
+}
+.controls button:hover { background: rgba(255, 127, 178, 0.18); border-color: rgba(255, 127, 178, 0.55); }
+.controls button:active { transform: scale(0.96); }
+.controls button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.controls button[aria-pressed="true"] { border-color: rgba(255, 127, 178, 0.5); }
+.controls button[aria-pressed="false"] { opacity: 0.6; }
+
+.hint {
+  position: fixed; z-index: 2; left: 0; right: 0; text-align: center; margin: 0;
+  bottom: calc(max(20px, env(safe-area-inset-bottom)) + 64px);
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim);
+  pointer-events: none; opacity: 0; animation: fade 1.6s 7s forwards;
+  transition: opacity 1s;
+}
+.hint.gone { opacity: 0 !important; animation: none; }
+
+.fail {
+  position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; padding: 24px;
+  text-align: center; background: #000; color: var(--ink); font-family: var(--serif); font-size: 20px;
+}
+.fail[hidden] { display: none; }
+
+@keyframes fade { to { opacity: 1; } }
+
+@media (max-width: 520px) {
+  .title { font-size: 16px; letter-spacing: 0.18em; }
+  .controls button span { display: none; }
+  .controls button { padding: 12px 15px; }
+  .hud-bottom { max-width: calc(100% - 2 * var(--pad)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hud-top, .controls { animation-duration: 0.01s; animation-delay: 0s; }
+}

@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Lirios 3D</title>
+<link rel="stylesheet" href="css/style.css">
+
+<canvas id="scene" aria-label="Ramo de lirios en 3D. Arrastra para girar, rueda o pellizca para acercar."></canvas>
+
+<header class="hud hud-top">
+  <span class="title">Feliz cumpleaños Ameri</span>
+  <span class="sub">Un ramo de lirios para ti</span>
+</header>
+
+<footer class="hud hud-bottom">
+  <span id="stage" class="stage"></span>
+  <span class="track"><i id="bar"></i></span>
+</footer>
+
+<nav class="controls" aria-label="Controles">
+  <button id="btn-restart" type="button" title="Reiniciar animación (R)" aria-label="Reiniciar animación">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+    <span>Reiniciar</span>
+  </button>
+  <button id="btn-rotate" type="button" aria-pressed="true" title="Rotación automática" aria-label="Rotación automática">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="12" rx="9" ry="4"/><path d="M17 5.5 20 8l-3.2.8"/></svg>
+    <span>Girar</span>
+  </button>
+</nav>
+
+<p id="hint" class="hint">Arrastra para girar · rueda o pellizca para acercar</p>
+<div id="webgl-fail" class="fail" hidden>Tu navegador no pudo iniciar WebGL. Prueba con Chrome, Firefox, Safari o Edge actualizados.</div>
+
+<script src="dist/app.js"></script>
+
+</body></html>
